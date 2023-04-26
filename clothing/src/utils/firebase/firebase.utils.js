@@ -39,7 +39,10 @@ const firebaseConfig = {
 
   export const db = getFirestore();
   
-  export const createUserDocumentFromAuth = async (userAuth) => {
+  export const createUserDocumentFromAuth = async (
+      userAuth, 
+      additionalInformation={displayName: 'default'}
+    ) =>  {
     if (!userAuth) return;
     
     const userDocRef = doc(db, 'users', userAuth.uid);
@@ -57,10 +60,11 @@ const firebaseConfig = {
       const createdAt = new Date();
 
       try {
-        await setDoc(userDocRef, {
+        return await setDoc(userDocRef, {
           displayName,
           email,
-          createdAt
+          createdAt,
+          ...additionalInformation,
         });
       } catch (error) {
         console.log('error creating user', error.message);
@@ -72,5 +76,5 @@ const firebaseConfig = {
 
   export const createAuthUserWithEmailAndPassword = async (email, password) => {
     if (!email || !password) return;
-    return await createAuthUserWithEmailAndPassword(auth, email, password);
-  }
+    return await createUserWithEmailAndPassword(auth, email, password);
+  };
