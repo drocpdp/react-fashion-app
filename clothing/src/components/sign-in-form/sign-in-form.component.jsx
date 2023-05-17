@@ -40,12 +40,19 @@ const SignInForm = () => {
             console.log(response);
             resetFormFields();
         } catch(error) {
-            if(error.code === 'auth/email-already-in-use'){
-                alert('Cannot create user, email already in use');
-            } else {
-                console.log('user creation encountered an error ', error);
+            switch(error.code) {
+                case 'auth/wrong-password':
+                    alert('incorrect password');
+                    break
+                case 'auth/email-already-in-use':
+                    alert('Cannot create user, email already in use');
+                    break
+                case 'auth/user-not-found':
+                    alert('No user associated with this email');
+                    break
+                default:
+                    console.log(error);
             }
-            
 
         }
 

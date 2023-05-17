@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { getRedirectResult } from 'firebase/auth';
 
+import './authentication.component.scss';
+
 import { 
     auth,
     signInWithGooglePopup, 
@@ -27,8 +29,7 @@ const Authentication = () => {
     };
 
     return (
-        <div>
-            <h1>Sign In Page</h1>
+        <div className='authentication-container'>
             <SignInForm />
             <SignUpForm />
         </div>
