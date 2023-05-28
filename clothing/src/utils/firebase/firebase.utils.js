@@ -7,6 +7,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from 'firebase/auth';
 
 import {
@@ -14,7 +15,7 @@ import {
   doc,
   getDoc,
   setDoc
-} from 'firebase/firestore'
+} from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -49,11 +50,7 @@ const firebaseConfig = {
     
     const userDocRef = doc(db, 'users', userAuth.uid);
 
-    console.log(userDocRef);
-
     const userSnapshot = await getDoc(userDocRef);
-    console.log(userSnapshot);
-    console.log(userSnapshot.exists());
 
     // check if user data does not exist
     // if not, create / set the document with the data from userAuth in my colleciton.    
@@ -62,7 +59,7 @@ const firebaseConfig = {
       const createdAt = new Date();
 
       try {
-        return await setDoc(userDocRef, {
+        await setDoc(userDocRef, {
           displayName,
           email,
           createdAt,
@@ -87,3 +84,6 @@ const firebaseConfig = {
   };
 
   export const signOutUser = async () => await signOut(auth); 
+
+  export const onAuthStateChangedListener = (callback) => 
+    onAuthStateChanged(auth, callback);
