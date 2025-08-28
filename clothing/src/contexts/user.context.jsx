@@ -1,4 +1,8 @@
-import { createContext, useState, useEffect, useReducer } from 'react'
+import { 
+    createContext, 
+    useEffect, 
+    useReducer 
+} from 'react'
 
 import { createAction } from '../utils/reducer/reducer.utils';
 
@@ -20,7 +24,7 @@ const userReducer = (state, action) => {
     console.log('dispatched');
     console.log(action);
     const { type, payload } = action;
-    
+
     switch(type) {
         case USER_ACTION_TYPES.SET_CURRENT_USER:
             return {
@@ -28,9 +32,8 @@ const userReducer = (state, action) => {
                 currentUser: payload
             }
         default:
-            throw new Error(`Unhandled type ${type}`);
+            throw new Error(`Unhandled type ${type} in userReducer`);
     }
-
 }
 
 const INITIAL_STATE = {
@@ -60,4 +63,4 @@ export const UserProvider = ({ children }) => {
 
 
     return <UserContext.Provider value={value}>{children}</UserContext.Provider>
-}
+};

@@ -43,14 +43,10 @@ const clearCartItem = (cartItems, cartItemToClear) => {
 }
 
 export const CartContext = createContext({
-    isCartOpen: false,
     setIsCartOpen: () => {},
-    cartItems: [],
     addItemToCart: () => {},
     removeItemFromCart: () => {},
     clearItemFromCart: () => {},
-    cartCount: 0,
-    cartTotal: 0
 });
 
 const CART_ACTION_TYPES = {
@@ -107,7 +103,7 @@ export const CartProvider = ({ children }) => {
             })
         )
     }
-
+  
     const addItemToCart = (productToAdd) => {
         const newCartItems = addCartItem(cartItems, productToAdd);
         updateCartItemsReducer(newCartItems);
@@ -126,7 +122,6 @@ export const CartProvider = ({ children }) => {
     const setIsCartOpen = (bool) => {
         dispatch(createAction(CART_ACTION_TYPES.SET_IS_CART_OPEN,bool));
     }
-
 
     const value = { 
         isCartOpen, 
